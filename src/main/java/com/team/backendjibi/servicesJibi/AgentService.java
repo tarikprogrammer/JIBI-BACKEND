@@ -1,7 +1,9 @@
 package com.team.backendjibi.servicesJibi;
 
+import com.team.backendjibi.agence.AgenceEntity;
 import com.team.backendjibi.backOffice.AgentEntity;
 import com.team.backendjibi.dto.AgentDto;
+import com.team.backendjibi.repositoryJibi.RepoAgence;
 import com.team.backendjibi.repositoryJibi.RepoAgent;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,11 @@ import java.util.stream.Collectors;
 public class AgentService {
     @Autowired
     private RepoAgent repoAgent;
+    @Autowired
+    private RepoAgence repoAgence;
+    private AgenceEntity agenceEntity = AgenceEntity.builder()
+            .agenceName("JIBI")
+            .build();
 
     public AgentDto createAgent(AgentDto agentDto) throws Exception {
       AgentEntity agent = new AgentEntity();
@@ -24,7 +31,11 @@ public class AgentService {
       if(verifyPhone!=null){
           throw new Exception("phone number est deja exist");
       }
-      agent.setAgent(true);
+        AgenceEntity existingAgence = repoAgence.findByAgenceName("JIBI");
+        if (existingAgence == null) {
+            existingAgence = repoAgence.save(agenceEntity);
+        }
+        agent.setAgence(existingAgence);
       AgentEntity newAgent = repoAgent.save(agent);
       AgentDto agentDtoCreated=new AgentDto();
       BeanUtils.copyProperties(newAgent,agentDtoCreated);
