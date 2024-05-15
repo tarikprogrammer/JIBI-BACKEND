@@ -15,26 +15,26 @@ public class ServiceClient {
     @Autowired
     private RepoClient repoClient;
 
-    public boolean create(ClientDto clientDto){
-        boolean status=false;
+    public boolean create(ClientDto clientDto) {
+        boolean status = false;
         ClientEntity clientEntity = new ClientEntity();
-        BeanUtils.copyProperties(clientDto,clientEntity);
+        BeanUtils.copyProperties(clientDto, clientEntity);
         ClientEntity newClient = repoClient.save(clientEntity);
 
-        if(newClient!=null)
-           status=true;
+        if (newClient != null)
+            status = true;
 
         return status;
     }
-    public List<ClientDto>getAllClient(){
-        List<ClientEntity>clients=new ArrayList<>();
-        clients=repoClient.findAll();
-        List<ClientDto> allclients= new ArrayList<>();
-        ClientDto clientDto=new ClientDto();
-        for(ClientEntity c:clients){
-           BeanUtils.copyProperties(c,clientDto);
-           allclients.add(clientDto);
+
+    public List<ClientDto> getAllClient() {
+        List<ClientEntity> clients = repoClient.findAll();
+        List<ClientDto> allClients = new ArrayList<>();
+        for (ClientEntity c : clients) {
+            ClientDto clientDto = new ClientDto();
+            BeanUtils.copyProperties(c, clientDto);
+            allClients.add(clientDto);
         }
-        return allclients;
+        return allClients;
     }
 }
