@@ -27,14 +27,14 @@ public class ServiceClient {
         return status;
     }
     public List<ClientDto>getAllClient(){
-        List<ClientEntity> clients=repoClient.findAll();
+        List<ClientEntity>clients=new ArrayList<>();
+        clients=repoClient.findAll();
         List<ClientDto> allclients= new ArrayList<>();
+        ClientDto clientDto=new ClientDto();
         for(ClientEntity c:clients){
-            ClientDto clientDto=new ClientDto();
-            BeanUtils.copyProperties(c,clientDto);
-            allclients.add(clientDto);
+           BeanUtils.copyProperties(c,clientDto);
+           allclients.add(clientDto);
         }
-
         return allclients;
     }
 }
