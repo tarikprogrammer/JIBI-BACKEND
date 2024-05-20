@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -35,8 +36,12 @@ public class AgentService {
         if (existingAgence == null) {
             existingAgence = repoAgence.save(agenceEntity);
         }
+        AgentEntity newAgent =new AgentEntity();
         agent.setAgence(existingAgence);
-      AgentEntity newAgent = repoAgent.save(agent);
+        if(Objects.equals(agent.getNumero_patente(), existingAgence.getNumeroPattente())){
+            System.out.println("tarik service agent is here");
+            newAgent=repoAgent.save(agent);
+        }
       AgentDto agentDtoCreated=new AgentDto();
       BeanUtils.copyProperties(newAgent,agentDtoCreated);
       return agentDtoCreated;

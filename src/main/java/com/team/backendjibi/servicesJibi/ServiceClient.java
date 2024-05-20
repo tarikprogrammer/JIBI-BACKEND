@@ -1,6 +1,8 @@
 package com.team.backendjibi.servicesJibi;
 
+import com.team.backendjibi.backOffice.AgentEntity;
 import com.team.backendjibi.backOffice.ClientEntity;
+import com.team.backendjibi.dto.AgentDto;
 import com.team.backendjibi.dto.ClientDto;
 import com.team.backendjibi.repositoryJibi.RepoClient;
 import org.springframework.beans.BeanUtils;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ServiceClient {
@@ -36,5 +39,15 @@ public class ServiceClient {
            allclients.add(clientDto);
         }
         return allclients;
+    }
+    public ClientDto getClient(ClientDto clientDto){
+        ClientEntity getClient = new ClientEntity();
+        BeanUtils.copyProperties(clientDto,getClient);
+        ClientDto clientDto1 = new ClientDto();
+        ClientEntity isExist=repoClient.findByPhone(getClient.getPhone());
+        if(isExist!=null){
+            BeanUtils.copyProperties(isExist,clientDto1);
+        }
+        return clientDto1;
     }
 }

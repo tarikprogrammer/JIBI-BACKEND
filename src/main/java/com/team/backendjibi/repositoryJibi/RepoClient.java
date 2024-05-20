@@ -4,4 +4,5 @@ import com.team.backendjibi.backOffice.ClientEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface RepoClient extends JpaRepository<ClientEntity,Long> {
+    ClientEntity findByPhone(String phone);
 }
