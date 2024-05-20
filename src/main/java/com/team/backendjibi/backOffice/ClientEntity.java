@@ -1,9 +1,7 @@
 package com.team.backendjibi.backOffice;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.team.backendjibi.CMI.entity.Account;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -26,5 +24,8 @@ public class ClientEntity {
     private String file;
     private String password;
     private String cover;
+
+    @OneToOne(mappedBy = "Client", cascade = CascadeType.ALL)
+    private Account account;
 
 }
