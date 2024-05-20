@@ -30,7 +30,7 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public AccountDto addAccount (Long ClientId) {
         ClientEntity client = repoClient.findById(ClientId).orElseThrow(() -> new RuntimeException("Client not found"));
-        Account account = Account.builder().Client(client).build();
+        Account account = Account.builder().client(client).build();
         accountRepository.save(account);
         return AccountMapper.mapAccountToAccountDto(account);
     }

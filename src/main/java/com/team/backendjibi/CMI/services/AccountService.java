@@ -2,9 +2,10 @@ package com.team.backendjibi.CMI.services;
 
 import com.team.backendjibi.CMI.dto.AccountDto;
 import com.team.backendjibi.CMI.request.SoldeAccountRequest;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public interface AccountService {
     AccountDto addAccount(Long customerId);
     void deleteAccountById(Long Id);

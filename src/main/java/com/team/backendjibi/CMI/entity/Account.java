@@ -22,17 +22,17 @@ public class Account {
     private Long id;
 
     @Column(nullable = false)
-    private float solde;
+    private double solde;
 
     private int plafond ; // can be either 200DH - 5 000DH - 20 000DH pour client particulier et ou 0DH/ sans plafond pou compte professionnel
 
     @OneToOne
-    @JoinColumn(name = "client_id")
-    private ClientEntity Client;
+    @JoinColumn(name = "id")
+    private ClientEntity client;
 
     @PrePersist
     public void initSolde(){
-        solde=0F;
+        this.solde=0;
     }
 
 

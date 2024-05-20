@@ -25,7 +25,7 @@ public class ClientEntity {
     private String password;
     private String cover;
 
-    @OneToOne(mappedBy = "Client", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "client", cascade = CascadeType.ALL)
     private Account account;
 
 }

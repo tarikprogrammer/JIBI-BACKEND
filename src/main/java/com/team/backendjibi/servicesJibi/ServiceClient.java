@@ -17,7 +17,6 @@ import java.util.stream.Collectors;
 public class ServiceClient {
     @Autowired
     private RepoClient repoClient;
-
     public boolean create(ClientDto clientDto){
         boolean status=false;
         ClientEntity clientEntity = new ClientEntity();
@@ -26,7 +25,6 @@ public class ServiceClient {
 
         if(newClient!=null)
            status=true;
-
         return status;
     }
     public List<ClientDto>getAllClient(){
