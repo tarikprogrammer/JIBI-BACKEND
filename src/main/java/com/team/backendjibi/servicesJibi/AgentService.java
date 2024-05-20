@@ -1,19 +1,27 @@
 package com.team.backendjibi.servicesJibi;
 
+import com.team.backendjibi.agence.AgenceEntity;
 import com.team.backendjibi.backOffice.AgentEntity;
 import com.team.backendjibi.dto.AgentDto;
+import com.team.backendjibi.repositoryJibi.RepoAgence;
 import com.team.backendjibi.repositoryJibi.RepoAgent;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
 public class AgentService {
     @Autowired
     private RepoAgent repoAgent;
+    @Autowired
+    private RepoAgence repoAgence;
+    private AgenceEntity agenceEntity = AgenceEntity.builder()
+            .agenceName("JIBI")
+            .build();
 
     public AgentDto createAgent(AgentDto agentDto) throws Exception {
       AgentEntity agent = new AgentEntity();
@@ -24,8 +32,16 @@ public class AgentService {
       if(verifyPhone!=null){
           throw new Exception("phone number est deja exist");
       }
-      agent.setAgent(true);
-      AgentEntity newAgent = repoAgent.save(agent);
+        AgenceEntity existingAgence = repoAgence.findByAgenceName("JIBI");
+        if (existingAgence == null) {
+            existingAgence = repoAgence.save(agenceEntity);
+        }
+        AgentEntity newAgent =new AgentEntity();
+        agent.setAgence(existingAgence);
+        if(Objects.equals(agent.getNumero_patente(), existingAgence.getNumeroPattente())){
+            System.out.println("tarik service agent is here");
+            newAgent=repoAgent.save(agent);
+        }
       AgentDto agentDtoCreated=new AgentDto();
       BeanUtils.copyProperties(newAgent,agentDtoCreated);
       return agentDtoCreated;

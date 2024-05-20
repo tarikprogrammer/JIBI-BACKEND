@@ -15,6 +15,13 @@ public class AdminEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String phone;
+    @Column(nullable = false)
     private String password;
+    @PrePersist
+    void changePass(){
+        if(this.password == null){
+            this.password="ATRTRETRE";
+        }
+    }
 
 }
