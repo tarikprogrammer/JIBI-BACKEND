@@ -27,7 +27,7 @@ public class Account {
     private int plafond ; // can be either 200DH - 5 000DH - 20 000DH pour client particulier et ou 0DH/ sans plafond pou compte professionnel
 
     @OneToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "client_id")
     private ClientEntity client;
 
     @PrePersist

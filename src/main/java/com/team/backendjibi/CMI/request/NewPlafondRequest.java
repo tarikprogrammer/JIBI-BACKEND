@@ -9,8 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Builder
-public class SoldeAccountRequest {
+public class NewPlafondRequest {
     private String identifiant;
-    private Float amount;
     private int plafond;
 }

@@ -1,5 +1,6 @@
 package com.team.backendjibi.CMI.controllers;
 import com.team.backendjibi.CMI.dto.AccountDto;
+import com.team.backendjibi.CMI.request.ClientIdRequest;
 import com.team.backendjibi.CMI.request.SoldeAccountRequest;
 import com.team.backendjibi.CMI.services.AccountService;
 import com.team.backendjibi.CMI.services.servicesImpl.AccountServiceImpl;
@@ -11,14 +12,22 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/account")
+@CrossOrigin("*")
 public class AccountController {
 
     @Autowired
     private AccountServiceImpl accountService ;
 
+
+    @GetMapping("/testAccount")
+    public String answerME(){
+        return "I hear you !";
+    }
+
+
     @PostMapping("/newAccount")
-    public ResponseEntity<AccountDto> addAccount(@RequestBody Long clientId){
-        AccountDto accountDto = accountService.addAccount(clientId);
+    public ResponseEntity<AccountDto> addAccount(@RequestBody ClientIdRequest clientIdRequest){
+        AccountDto accountDto = accountService.addAccount(clientIdRequest.getClientId(),clientIdRequest.getPlafond() );
         return new ResponseEntity<>(accountDto, HttpStatus.CREATED);
     }
 

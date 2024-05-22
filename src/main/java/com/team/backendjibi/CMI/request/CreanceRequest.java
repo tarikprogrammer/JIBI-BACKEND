@@ -1,16 +1,18 @@
 package com.team.backendjibi.CMI.request;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
-public class SoldeAccountRequest {
-    private String identifiant;
-    private Float amount;
-    private int plafond;
+
+public class CreanceRequest {
+
+    private int codeCreance;
+    private String nomCreance;
 }
