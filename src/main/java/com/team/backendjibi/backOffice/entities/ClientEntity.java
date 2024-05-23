@@ -1,7 +1,7 @@
 package com.team.backendjibi.backOffice.entities;
 
 import com.team.backendjibi.backOffice.profiles.ClientProfile;
-import com.team.backendjibi.CMI.entity.AccountEntity;
+import com.team.backendjibi.CMI.entity.Account;
 import jakarta.persistence.*;
 import lombok.*;
 

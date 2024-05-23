@@ -1,7 +1,7 @@
 package com.team.backendjibi.CMI.entity;
 
 
-import com.team.backendjibi.backOffice.ClientEntity;
+import com.team.backendjibi.backOffice.entities.ClientEntity;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.*;
