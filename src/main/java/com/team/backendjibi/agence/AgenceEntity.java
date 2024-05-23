@@ -1,6 +1,6 @@
 package com.team.backendjibi.agence;
 
-import com.team.backendjibi.backOffice.AgentEntity;
+import com.team.backendjibi.backOffice.entities.AgentEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.stereotype.Component;

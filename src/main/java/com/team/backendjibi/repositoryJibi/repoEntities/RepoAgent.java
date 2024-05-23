@@ -1,12 +1,11 @@
-package com.team.backendjibi.repositoryJibi;
+package com.team.backendjibi.repositoryJibi.repoEntities;
 
-import com.team.backendjibi.backOffice.AgentEntity;
+import com.team.backendjibi.backOffice.entities.AgentEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
 
 public interface RepoAgent extends JpaRepository<AgentEntity,Long> {
-    AgentEntity findByPhone(String phone);
 
 }

@@ -1,6 +1,8 @@
-package com.team.backendjibi.backOffice;
+package com.team.backendjibi.backOffice.entities;
 
-import com.team.backendjibi.CMI.entity.Account;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.team.backendjibi.backOffice.profiles.ClientProfile;
+import com.team.backendjibi.cmi.entity.AccountEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -10,6 +12,7 @@ import lombok.*;
 @Getter
 @Setter
 @Builder
+@ToString
 public class ClientEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,13 +22,9 @@ public class ClientEntity {
     private String piece_identite;
     private String numeroDePieceIdentite;
     private String addresse;
-    private String email;
-    private String phone;
     private String file;
-    private String password;
-    private String cover;
-
-    @OneToOne(mappedBy = "client", cascade = CascadeType.ALL)
-    private Account account;
+    @ToString.Exclude
+    @OneToOne(mappedBy = "client",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    private ClientProfile clientProfile;
 
 }

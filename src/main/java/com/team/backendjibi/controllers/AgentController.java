@@ -1,9 +1,8 @@
 package com.team.backendjibi.controllers;
 
-import com.team.backendjibi.backOffice.ClientEntity;
 import com.team.backendjibi.dto.AgentDto;
 import com.team.backendjibi.dto.ClientDto;
-import com.team.backendjibi.repositoryJibi.RepoClient;
+import com.team.backendjibi.repositoryJibi.repoEntities.RepoClient;
 import com.team.backendjibi.request.RequestAgent;
 import com.team.backendjibi.request.RequestClient;
 import com.team.backendjibi.servicesJibi.AgentService;

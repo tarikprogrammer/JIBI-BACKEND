@@ -19,4 +19,6 @@ public class ClientDto {
     private String file;
     private String password;
     private String cover;
+   /* private String accounttype;*/
+
 }

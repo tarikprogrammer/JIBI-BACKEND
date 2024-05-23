@@ -1,4 +1,4 @@
-package com.team.backendjibi.repositoryJibi;
+package com.team.backendjibi.repositoryJibi.repoEntities;
 
 import com.team.backendjibi.agence.AgenceEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
