@@ -1,8 +1,7 @@
 package com.team.backendjibi.backOffice.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.team.backendjibi.backOffice.profiles.ClientProfile;
-import com.team.backendjibi.cmi.entity.AccountEntity;
+import com.team.backendjibi.CMI.entity.AccountEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
