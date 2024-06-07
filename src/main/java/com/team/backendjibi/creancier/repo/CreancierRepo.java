@@ -4,4 +4,5 @@ import com.team.backendjibi.creancier.entities.CreancierEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CreancierRepo extends JpaRepository<CreancierEntity,Long> {
+    CreancierEntity findByRef(String ref);
 }

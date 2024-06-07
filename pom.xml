@@ -56,7 +56,17 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
         </dependency>
-
+        <!-- https://mvnrepository.com/artifact/com.twilio.sdk/twilio -->
+        <dependency>
+            <groupId>com.twilio.sdk</groupId>
+            <artifactId>twilio</artifactId>
+            <version>7.34.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.vonage</groupId>
+            <artifactId>client</artifactId>
+            <version>6.1.0</version>
+        </dependency>
 
     </dependencies>
 

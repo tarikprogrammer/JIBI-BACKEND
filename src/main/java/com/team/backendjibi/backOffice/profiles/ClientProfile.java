@@ -1,5 +1,6 @@
 package com.team.backendjibi.backOffice.profiles;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.team.backendjibi.backOffice.entities.ClientEntity;
 import com.team.backendjibi.shared.GeneratePassword;
 import jakarta.persistence.*;
@@ -17,7 +18,6 @@ public class ClientProfile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long profile_id;
-    private String username;
     @Column(nullable = false)
     private String password;
     private String cover;
@@ -31,6 +31,7 @@ public class ClientProfile {
     }
     @OneToOne
     @JoinColumn(name="client_id")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private ClientEntity client;
     @Column(name="client_id",insertable = false,updatable = false)
     private Long clientId;

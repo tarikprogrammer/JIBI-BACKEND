@@ -16,4 +16,12 @@ public class ClientController {
         System.out.println("test de getClient");
         return serviceClient.getClientDto(clientDto);
     }
+    @PutMapping("/webClient/update")
+    public boolean update(@RequestBody  ClientDto clientDto){
+        return serviceClient.updatePassword(clientDto);
+    }
+    @PutMapping("/webClient/updateCover")
+    public ClientDto update_cover(@RequestBody ClientDto clientDto){
+        return serviceClient.updateCover(clientDto);
+    }
 }

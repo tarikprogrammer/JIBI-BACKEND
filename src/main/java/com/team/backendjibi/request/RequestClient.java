@@ -1,4 +1,6 @@
 package com.team.backendjibi.request;
 
-public class RequestClient extends RequestAgent{
+import com.team.backendjibi.dto.ClientDto;
+
+public class RequestClient extends ClientDto {
 }

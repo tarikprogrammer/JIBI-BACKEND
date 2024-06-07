@@ -24,14 +24,14 @@ public class CreancierServices {
     DescriptionRepo descriptionRepo;
 
     public void createCreancier(){
-        CreancierEntity creancier = new CreancierEntity(null,"marocTelecome.png","IAM RECHARGES",null);
+        CreancierEntity creancier = new CreancierEntity(null,"marocTelecome.png","IAM RECHARGES","10%",null,null);
         List<DescriptionEntity> descriptionEntityList=new ArrayList<>();
         descriptionEntityList.add(new DescriptionEntity(null,"TELEPHONE ET INTERNET ",creancier));
         descriptionEntityList.add(new DescriptionEntity(null,"SIM",creancier));
         creancier.setDescriptionEntities(descriptionEntityList);
         creancierRepo.save(creancier);
 
-        CreancierEntity creancier1 = new CreancierEntity(null,"marocTelecome.png","IAM FACTURES",null);
+        CreancierEntity creancier1 = new CreancierEntity(null,"marocTelecome.png","IAM FACTURES","12%",null,null);
          descriptionEntityList=new ArrayList<>();
         descriptionEntityList.add(new DescriptionEntity(null,"PRODUIT INTERNET SIM",creancier1));
         descriptionEntityList.add(new DescriptionEntity(null,"PRODUIT FIXE SIM",creancier1));
@@ -39,20 +39,20 @@ public class CreancierServices {
         creancier1.setDescriptionEntities(descriptionEntityList);
         creancierRepo.save(creancier1);
 
-        CreancierEntity creancier2 = new CreancierEntity(null,"redal.png","REDAL",null);
+        CreancierEntity creancier2 = new CreancierEntity(null,"redal.png","REDAL","11.5%",null,null);
         descriptionEntityList=new ArrayList<>();
         descriptionEntityList.add(new DescriptionEntity(null,"FACTURES REDAL",creancier2));
         creancier2.setDescriptionEntities(descriptionEntityList);
         creancierRepo.save(creancier2);
 
-        CreancierEntity creancier3 = new CreancierEntity(null,"amendis.jpeg","AMENDIS TANGER",null);
+        CreancierEntity creancier3 = new CreancierEntity(null,"amendis.jpeg","AMENDIS TANGER","13%",null,null);
         descriptionEntityList=new ArrayList<>();
         descriptionEntityList.add(new DescriptionEntity(null,"FACTURES AMENDIS ",creancier3));
         descriptionEntityList.add(new DescriptionEntity(null,"TANGER",creancier3));
         creancier3.setDescriptionEntities(descriptionEntityList);
         creancierRepo.save(creancier3);
 
-        CreancierEntity creancier4 = new CreancierEntity(null,"alcs.png","ALCS",null);
+        CreancierEntity creancier4 = new CreancierEntity(null,"alcs.png","ALCS","14%",null,null);
         descriptionEntityList=new ArrayList<>();
         descriptionEntityList.add(new DescriptionEntity(null,"FACTURES ALCS",creancier4));
         creancier4.setDescriptionEntities(descriptionEntityList);
@@ -65,5 +65,17 @@ public class CreancierServices {
 
       }
         return creancierEntities;
+    }
+    public CreancierDto getCreancierInfo(CreancierDto creancierDto){
+        CreancierEntity creancierEntity = new CreancierEntity();
+        BeanUtils.copyProperties(creancierDto,creancierEntity);
+        CreancierEntity isExist=creancierRepo.findByRef(creancierEntity.getRef());
+        CreancierDto getCreancier= new CreancierDto();
+        if(isExist!=null){
+            System.out.println(creancierDto.getSolde());
+            BeanUtils.copyProperties(isExist,getCreancier);
+            getCreancier.setSolde(creancierDto.getSolde());
+        }
+        return getCreancier;
     }
 }

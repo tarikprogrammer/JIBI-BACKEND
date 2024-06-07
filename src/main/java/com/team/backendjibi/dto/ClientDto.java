@@ -14,11 +14,14 @@ public class ClientDto {
     private String piece_identite;
     private String numeroDePieceIdentite;
     private String addresse;
-    private String email;
-    private String phone;
-    private String file;
+    private String nationality;
+    private String accountType;
     private String password;
     private String cover;
-   /* private String accounttype;*/
-
+    private String email;
+    private String phone;
+    private String ref;
+    private String solde;
+    private String logoCreancier;
+    private String impayes;
 }

@@ -14,5 +14,8 @@ public class CreancierDto {
     private Long id;
     private String logoCreancier;
     private String logoName;
+    private String ref;
+    private double solde;
+    private String impayes;
 
 }
