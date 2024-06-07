@@ -13,11 +13,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
-@EnableConfigurationProperties
 public class BackendJibiApplication {
-    private static final Logger log = LoggerFactory.getLogger(BackendJibiApplication.class);
-    @Autowired
-    private OtpConfig otpConfig;
 
     public static void main(String[] args) {
         SpringApplication.run(BackendJibiApplication.class, args);

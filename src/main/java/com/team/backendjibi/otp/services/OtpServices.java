@@ -14,16 +14,13 @@ import com.vonage.client.sms.messages.TextMessage;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.client.RestTemplate;
+
 
 import java.text.DecimalFormat;
 import java.util.Random;
 
 @Service
-
 public class OtpServices {
     @Autowired
     private Repo repOtp;
@@ -34,8 +31,6 @@ public class OtpServices {
 
     @Value("${vonage.api.secret}")
     private String apiSecret;
-    @Autowired
-    private Repo repo;
 
     public OtpDtoResponse sendSms(OtpDtoRequest otpDtoRequest) throws Exception {
         OtpEntity otpEntity = new OtpEntity();
