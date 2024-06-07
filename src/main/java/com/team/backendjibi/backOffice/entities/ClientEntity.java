@@ -23,12 +23,13 @@ public class ClientEntity {
     private String numeroDePieceIdentite;
     private String addresse;
     private String file;
+    private String accountType;
     @ToString.Exclude
     @OneToOne(mappedBy = "client",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private ClientProfile clientProfile;
     @OneToOne(mappedBy = "client",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private Account account;
     @OneToOne(mappedBy = "client",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    private OtpEntity otpEntity;
+    private OtpEntity otpClient;
 
 }
