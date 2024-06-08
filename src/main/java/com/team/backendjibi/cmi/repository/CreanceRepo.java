@@ -1,6 +1,6 @@
-package com.team.backendjibi.creancier.repo;
+package com.team.backendjibi.cmi.repository;
 
-import com.team.backendjibi.creancier.entities.CreanceEntity;
+import com.team.backendjibi.cmi.entity.CreanceEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CreanceRepo extends JpaRepository<CreanceEntity,Long> {

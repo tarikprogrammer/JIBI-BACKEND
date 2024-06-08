@@ -1,4 +1,4 @@
-package com.team.backendjibi.cmi.repeository;
+package com.team.backendjibi.cmi.repository;
 
 import com.team.backendjibi.cmi.entity.Account;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,7 +1,7 @@
 package com.team.backendjibi.cmi.controller;
 
 import com.team.backendjibi.backOffice.entities.ClientEntity;
-import com.team.backendjibi.cmi.accountDto.AccountDto;
+import com.team.backendjibi.cmi.dto.AccountDto;
 import com.team.backendjibi.cmi.services.ServiceAccount;
 import com.team.backendjibi.dto.ClientDto;
 import com.team.backendjibi.servicesJibi.ServiceClient;

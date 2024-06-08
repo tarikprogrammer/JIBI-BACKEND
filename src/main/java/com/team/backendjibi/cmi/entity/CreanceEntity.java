@@ -1,4 +1,4 @@
-package com.team.backendjibi.creancier.entities;
+package com.team.backendjibi.cmi.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.team.backendjibi.shared.GeneratedRef;

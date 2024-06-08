@@ -6,6 +6,8 @@ import com.team.backendjibi.shared.GeneratedRef;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -26,6 +28,14 @@ public class Account {
     @JoinColumn(name = "client_id")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private ClientEntity client;
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "senderAccount")
+    private List<Transaction> sentTransactions;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "receiverAccount")
+    private List<Transaction> receivedTransactions;
+
     @PrePersist
     public void generateReference(){
         this.ref= GeneratedRef.generateRef();

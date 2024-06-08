@@ -1,14 +1,15 @@
-package com.team.backendjibi.creancier.services;
+package com.team.backendjibi.cmi.services;
 
-import com.team.backendjibi.creancier.dto.CreancierDto;
-import com.team.backendjibi.creancier.entities.CreanceEntity;
-import com.team.backendjibi.creancier.entities.CreancierEntity;
-import com.team.backendjibi.creancier.repo.CreanceRepo;
-import com.team.backendjibi.creancier.repo.CreancierRepo;
+import com.team.backendjibi.cmi.dto.CreancierDto;
+import com.team.backendjibi.cmi.entity.CreanceEntity;
+import com.team.backendjibi.cmi.entity.CreancierEntity;
+import com.team.backendjibi.cmi.repository.CreanceRepo;
+import com.team.backendjibi.cmi.repository.CreancierRepo;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,13 +70,13 @@ public class CreancierServices {
         CreanceEntity creance= new CreanceEntity();
         BeanUtils.copyProperties(creancierDto,creance);
         BeanUtils.copyProperties(creancierDto,creancierEntity);
-        CreanceEntity getCreace=creanceRepo.findByRef(creance.getRef());
-        CreancierEntity isExist=creancierRepo.findByCreanceEntities(getCreace);
+        CreanceEntity getCreance=creanceRepo.findByRef(creance.getRef());
+        CreancierEntity isExist=creancierRepo.findByCreanceEntities(getCreance);
         CreancierDto getCreancier= new CreancierDto();
         if(isExist!=null){
             System.out.println(creancierDto.getSolde());
             BeanUtils.copyProperties(isExist,getCreancier);
-            BeanUtils.copyProperties(getCreace,getCreancier);
+            BeanUtils.copyProperties(getCreance,getCreancier);
             getCreancier.setSolde(creancierDto.getSolde());
         }
         return getCreancier;

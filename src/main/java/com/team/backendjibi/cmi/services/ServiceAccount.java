@@ -2,12 +2,11 @@ package com.team.backendjibi.cmi.services;
 
 import com.team.backendjibi.backOffice.entities.ClientEntity;
 import com.team.backendjibi.backOffice.profiles.ClientProfile;
-import com.team.backendjibi.cmi.accountDto.AccountDto;
+import com.team.backendjibi.cmi.dto.AccountDto;
 import com.team.backendjibi.cmi.accountSolde.Solde;
 import com.team.backendjibi.cmi.entity.Account;
-import com.team.backendjibi.creancier.dto.CreancierDto;
-import com.team.backendjibi.creancier.entities.CreancierEntity;
-import com.team.backendjibi.creancier.repo.CreancierRepo;
+import com.team.backendjibi.cmi.repository.RepoAccount;
+import com.team.backendjibi.cmi.repository.CreancierRepo;
 import com.team.backendjibi.dto.ClientDto;
 import com.team.backendjibi.repositoryJibi.repoEntities.RepoClient;
 import com.team.backendjibi.repositoryJibi.repoProfiles.RepoProfileClient;
@@ -25,6 +24,9 @@ public class ServiceAccount {
     private RepoProfileClient repoProfileClient;
     @Autowired
     private CreancierRepo creancierRepo;
+
+    @Autowired
+    private RepoAccount repoAccount;
     /* ----------------add account ---------------*/
     public AccountDto addAccount(String accountType){
         AccountDto accountDto = new AccountDto();
@@ -77,6 +79,19 @@ public class ServiceAccount {
         }
         return result;
 
+    }
+
+    /*--------------------deposer un solde de compte du client -----------------------*/
+    public void deposerSolde(double accountSolde , Account account){
+        if(account.getPlafond()== 0){
+            account.setSolde(account.getSolde() + accountSolde);
+            repoAccount.save(account);
+        } else if ((account.getPlafond() + accountSolde )<= account.getPlafond() ) {
+            account.setSolde(account.getSolde() + accountSolde);
+            repoAccount.save(account);
+        }else {
+            throw new RuntimeException("Plafond du compte atteint");
+        }
     }
 
 

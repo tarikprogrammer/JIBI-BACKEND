@@ -1,4 +1,4 @@
-package com.team.backendjibi.creancier.dto;
+package com.team.backendjibi.cmi.dto;
 
 import lombok.*;
 

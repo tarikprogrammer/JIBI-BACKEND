@@ -1,10 +1,10 @@
-package com.team.backendjibi.creancier.services;
+package com.team.backendjibi.cmi.services;
 
-import com.team.backendjibi.creancier.dto.CreancierDto;
-import com.team.backendjibi.creancier.entities.CreanceEntity;
-import com.team.backendjibi.creancier.entities.CreancierEntity;
-import com.team.backendjibi.creancier.repo.CreanceRepo;
-import com.team.backendjibi.creancier.repo.CreancierRepo;
+import com.team.backendjibi.cmi.dto.CreancierDto;
+import com.team.backendjibi.cmi.entity.CreanceEntity;
+import com.team.backendjibi.cmi.entity.CreancierEntity;
+import com.team.backendjibi.cmi.repository.CreanceRepo;
+import com.team.backendjibi.cmi.repository.CreancierRepo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

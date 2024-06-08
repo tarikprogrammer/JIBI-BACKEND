@@ -1,5 +1,5 @@
 package com.team.backendjibi;
-import com.team.backendjibi.creancier.services.CreancierServices;
+import com.team.backendjibi.cmi.services.CreancierServices;
 import com.team.backendjibi.otp.otpConfig.OtpConfig;
 import com.twilio.Twilio;
 import jakarta.annotation.PostConstruct;
