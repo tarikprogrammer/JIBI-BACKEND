@@ -25,35 +25,35 @@ public class CreancierServices {
     public void createCreancier(){
         CreancierEntity creancier = new CreancierEntity(null,"marocTelecome.png","IAM RECHARGES","10%",null);
         List<CreanceEntity> descriptionEntityList=new ArrayList<>();
-        descriptionEntityList.add(new CreanceEntity(null,"TELEPHONE ET INTERNET ","",creancier));
-        descriptionEntityList.add(new CreanceEntity(null,"SIM","",creancier));
+        descriptionEntityList.add(new CreanceEntity(null,"TELEPHONE ET INTERNET ","",creancier,null));
+        descriptionEntityList.add(new CreanceEntity(null,"SIM","",creancier,null));
         creancier.setCreanceEntities(descriptionEntityList);
         creancierRepo.save(creancier);
 
         CreancierEntity creancier1 = new CreancierEntity(null,"marocTelecome.png","IAM FACTURES","12%",null);
         descriptionEntityList=new ArrayList<>();
-        descriptionEntityList.add(new CreanceEntity(null,"PRODUIT INTERNET SIM","",creancier1));
-        descriptionEntityList.add(new CreanceEntity(null,"PRODUIT FIXE SIM","",creancier1));
-        descriptionEntityList.add(new CreanceEntity(null,"PRODUIT MOBILE SIM","",creancier1));
+        descriptionEntityList.add(new CreanceEntity(null,"PRODUIT INTERNET SIM","",creancier1,null));
+        descriptionEntityList.add(new CreanceEntity(null,"PRODUIT FIXE SIM","",creancier1,null));
+        descriptionEntityList.add(new CreanceEntity(null,"PRODUIT MOBILE SIM","",creancier1,null));
         creancier1.setCreanceEntities(descriptionEntityList);
         creancierRepo.save(creancier1);
 
         CreancierEntity creancier2 = new CreancierEntity(null,"redal.png","REDAL","11.5%",null);
         descriptionEntityList=new ArrayList<>();
-        descriptionEntityList.add(new CreanceEntity(null,"FACTURES REDAL","",creancier2));
+        descriptionEntityList.add(new CreanceEntity(null,"FACTURES REDAL","",creancier2,null));
         creancier2.setCreanceEntities(descriptionEntityList);
         creancierRepo.save(creancier2);
 
         CreancierEntity creancier3 = new CreancierEntity(null,"amendis.jpeg","AMENDIS TANGER","13%",null);
         descriptionEntityList=new ArrayList<>();
-        descriptionEntityList.add(new CreanceEntity(null,"FACTURES AMENDIS ","",creancier3));
-        descriptionEntityList.add(new CreanceEntity(null,"TANGER","",creancier3));
+        descriptionEntityList.add(new CreanceEntity(null,"FACTURES AMENDIS ","",creancier3,null));
+        descriptionEntityList.add(new CreanceEntity(null,"TANGER","",creancier3,null));
         creancier3.setCreanceEntities(descriptionEntityList);
         creancierRepo.save(creancier3);
 
         CreancierEntity creancier4 = new CreancierEntity(null,"alcs.png","ALCS","14%",null);
         descriptionEntityList=new ArrayList<>();
-        descriptionEntityList.add(new CreanceEntity(null,"FACTURES ALCS","",creancier4));
+        descriptionEntityList.add(new CreanceEntity(null,"FACTURES ALCS","",creancier4,null));
         creancier4.setCreanceEntities(descriptionEntityList);
         creancierRepo.save(creancier4);
     }
