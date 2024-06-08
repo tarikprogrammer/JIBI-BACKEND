@@ -6,6 +6,7 @@ import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -38,9 +39,12 @@ public class Transaction{
     @JoinColumn(name="account.id" , nullable = false)
     private Account receiverAccount;
 
-//    @ManyToOne
-//    @JoinColumn(name = "creance_id")  à faire lors de l'integration de la creance
-//    private Creance creance;
+    @ManyToOne
+    @JoinColumn(name = "creance_id")
+    private CreanceEntity creance;
+
+    @OneToMany(mappedBy = "creance", fetch = FetchType.LAZY)
+    private List<Transaction> transactions;
 
 
 }

@@ -28,4 +28,6 @@ public class CreanceEntity {
     @JsonIgnore
     private CreancierEntity creancier;
 
+
+
 }
