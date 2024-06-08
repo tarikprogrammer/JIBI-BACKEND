@@ -22,14 +22,9 @@ public class CreancierEntity {
     private String logoCreancier;
     private String logoName;
     private String impayes;
-    @Column(nullable = false)
-    private String ref;
     @ToString.Exclude
     @OneToMany(mappedBy = "creancier",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    private List<DescriptionEntity>descriptionEntities;
-    @PrePersist
-    public void generateReference(){
-        this.ref= GeneratedRef.generateRef();
-    }
+    private List<CreanceEntity>creanceEntities;
+
 
 }

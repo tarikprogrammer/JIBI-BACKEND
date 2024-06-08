@@ -3,7 +3,7 @@ package com.team.backendjibi.shared;
 import java.util.Random;
 
 public class GeneratedRef {
-    private static final String ref="012345678998765432107483883";
+    private static final String ref="01234567899876";
     public static String generateRef(){
         Random rd=new Random();
         StringBuilder refRes=new StringBuilder();

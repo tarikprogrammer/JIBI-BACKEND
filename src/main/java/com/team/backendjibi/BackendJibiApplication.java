@@ -14,11 +14,17 @@ import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class BackendJibiApplication {
+    @Autowired
+    private CreancierServices creancierServices;
 
     public static void main(String[] args) {
         SpringApplication.run(BackendJibiApplication.class, args);
 
 
     }
-
+  /* @Bean
+    public String createCreancier(){
+        this.creancierServices.createCreancier();
+        return "test";
+   }*/
 }

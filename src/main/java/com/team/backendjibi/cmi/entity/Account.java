@@ -12,7 +12,6 @@ import lombok.*;
 @Getter
 @Setter
 @Builder
-@ToString
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

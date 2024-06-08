@@ -1,6 +1,5 @@
 package com.team.backendjibi.creancier.dto;
 
-import com.team.backendjibi.creancier.entities.DescriptionEntity;
 import lombok.*;
 
 import java.util.List;
@@ -17,5 +16,6 @@ public class CreancierDto {
     private String ref;
     private double solde;
     private String impayes;
+    private String creance;
 
 }
