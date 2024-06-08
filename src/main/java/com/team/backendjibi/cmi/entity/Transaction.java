@@ -43,8 +43,7 @@ public class Transaction{
     @JoinColumn(name = "creance_id")
     private CreanceEntity creance;
 
-    @OneToMany(mappedBy = "creance", fetch = FetchType.LAZY)
-    private List<Transaction> transactions;
+
 
 
 }

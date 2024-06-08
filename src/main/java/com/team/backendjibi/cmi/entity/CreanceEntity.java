@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 import jakarta.transaction.Transactional;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -27,6 +29,9 @@ public class CreanceEntity {
     @JoinColumn(name="creancier_id")
     @JsonIgnore
     private CreancierEntity creancier;
+
+    @OneToMany(mappedBy = "creance", fetch = FetchType.LAZY)
+    private List<Transaction> transactions;
 
 
 
