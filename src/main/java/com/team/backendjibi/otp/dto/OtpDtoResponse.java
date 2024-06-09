@@ -8,8 +8,8 @@ import lombok.*;
 @Setter
 @ToString
 public class OtpDtoResponse {
-    private String phoneNumber;
-    private String username;
+    private String phone;
+    private String fname;
     private String otp;
     private EnumStatus enumStatus;
 }

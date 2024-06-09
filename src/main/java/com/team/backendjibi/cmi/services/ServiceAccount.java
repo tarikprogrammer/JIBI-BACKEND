@@ -94,5 +94,17 @@ public class ServiceAccount {
         }
     }
 
+    /*--------------------verifier le  solde de compte du client -----------------------*/
+    public boolean verifySolde(double requestSolde,Long client_id){
+        boolean status=false;
+
+        Account account =repoAccount.findById(client_id).get();
+
+        if(account.getSolde()>=requestSolde){
+            status=true;
+        }
+
+       return status;
+    }
 
 }

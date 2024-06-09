@@ -25,4 +25,8 @@ public class AccountController {
     public boolean test(@RequestBody ClientDto clientDto){
         return this.serviceClient.effectuerPaiement(clientDto);
     }
+    @PostMapping("/account/verifySolde")
+    public boolean verifySolde(@RequestBody AccountDto accountDto){
+        return serviceClient.verify(accountDto);
+    }
 }

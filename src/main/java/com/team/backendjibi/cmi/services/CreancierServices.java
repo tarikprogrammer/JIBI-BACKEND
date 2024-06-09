@@ -66,19 +66,15 @@ public class CreancierServices {
         return creancierEntities;
     }
     public CreancierDto getCreancierInfo(CreancierDto creancierDto){
-        CreancierEntity creancierEntity = new CreancierEntity();
-        CreanceEntity creance= new CreanceEntity();
-        BeanUtils.copyProperties(creancierDto,creance);
-        BeanUtils.copyProperties(creancierDto,creancierEntity);
-        CreanceEntity getCreance=creanceRepo.findByRef(creance.getRef());
-        CreancierEntity isExist=creancierRepo.findByCreanceEntities(getCreance);
-        CreancierDto getCreancier= new CreancierDto();
-        if(isExist!=null){
-            System.out.println(creancierDto.getSolde());
-            BeanUtils.copyProperties(isExist,getCreancier);
-            BeanUtils.copyProperties(getCreance,getCreancier);
-            getCreancier.setSolde(creancierDto.getSolde());
-        }
-        return getCreancier;
+        CreancierDto response=new CreancierDto();
+        CreanceEntity creanceEntity = new CreanceEntity();
+        BeanUtils.copyProperties(creancierDto,creanceEntity);
+        CreanceEntity getCreance=creanceRepo.findByCreance(creanceEntity.getCreance());
+        CreancierEntity getCreancier=creancierRepo.findByCreanceEntities(getCreance);
+        System.out.println(creancierDto.getSolde());
+        BeanUtils.copyProperties(getCreancier,response);
+        BeanUtils.copyProperties(getCreance,response);
+        response.setSolde(creancierDto.getSolde());
+        return  response;
     }
 }

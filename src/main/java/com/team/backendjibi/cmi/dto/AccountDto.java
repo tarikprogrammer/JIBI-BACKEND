@@ -14,4 +14,5 @@ public class AccountDto {
     private double solde;
     private String accountType;
     private String ref;
+    private String phone;
 }

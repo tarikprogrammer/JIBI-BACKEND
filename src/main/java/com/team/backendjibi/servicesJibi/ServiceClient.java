@@ -104,9 +104,16 @@ public class ServiceClient {
         }
         return clientDto1;
     }
+    /*--------------------verify un solde de compte du client -----------------------*/
+    public boolean verify(AccountDto accountDto){
+        ClientProfile clientProfile = repoProfileClient.findByPhone(accountDto.getPhone());
+
+        return serviceAccount.verifySolde(accountDto.getSolde(),clientProfile.getClientId());
 
 
-    /*--------------- efectuer un paiement ------------------*/
+    }
+
+   /* --------------- efectuer un paiement ------------------*/
     public boolean effectuerPaiement(ClientDto clientDto){
         ClientEntity clientEntity = new ClientEntity();
         boolean status=false;

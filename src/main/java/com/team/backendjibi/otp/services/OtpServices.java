@@ -35,8 +35,8 @@ public class OtpServices {
     public OtpDtoResponse sendSms(OtpDtoRequest otpDtoRequest) throws Exception {
         OtpEntity otpEntity = new OtpEntity();
         StringBuilder sendTo = new StringBuilder("+212");
-        for (int i=1;i<otpDtoRequest.getPhoneNumber().length();i++){
-            sendTo.append(otpDtoRequest.getPhoneNumber().charAt(i));
+        for (int i=1;i<otpDtoRequest.getPhone().length();i++){
+            sendTo.append(otpDtoRequest.getPhone().charAt(i));
         }
         String otpGenerator=generateOtp();
         OtpDtoResponse otpDtoResponse = new OtpDtoResponse();
@@ -50,7 +50,7 @@ public class OtpServices {
         if (response.getMessages().get(0).getStatus() == MessageStatus.OK) {
             otpDtoResponse.setEnumStatus(EnumStatus.DELIVERED);
             otpDtoResponse.setOtp(otpGenerator);
-            Long findclient =repoClient.findClient(otpDtoRequest.getPhoneNumber()).getId();
+            Long findclient =repoClient.findClient(otpDtoRequest.getPhone()).getId();
             if(findclient!=null){
                 ClientEntity clientEntity = repoClient.findById(findclient).get();
                 if(clientEntity.getOtpClient().getId()==null){
