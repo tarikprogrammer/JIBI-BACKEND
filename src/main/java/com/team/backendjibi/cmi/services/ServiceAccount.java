@@ -107,4 +107,14 @@ public class ServiceAccount {
        return status;
     }
 
+    /*---------------- obtention de RIB du Client*/
+
+    public AccountDto getRIB(AccountDto accountDto){
+        AccountDto response = new AccountDto();
+        ClientProfile clientProfile = repoProfileClient.findByPhone(accountDto.getPhone());
+        Account account =repoAccount.findByClientId(clientProfile.getClientId());
+        BeanUtils.copyProperties(account,response);
+        return response;
+    }
+
 }

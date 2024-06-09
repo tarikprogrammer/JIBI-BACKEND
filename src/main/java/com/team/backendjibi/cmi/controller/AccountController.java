@@ -29,4 +29,8 @@ public class AccountController {
     public boolean verifySolde(@RequestBody AccountDto accountDto){
         return serviceClient.verify(accountDto);
     }
+    @PostMapping("/account/getRIB")
+    public AccountDto getRib(@RequestBody AccountDto accountDto){
+        return serviceAccount.getRIB(accountDto);
+    }
 }

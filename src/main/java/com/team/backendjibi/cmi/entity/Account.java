@@ -28,7 +28,8 @@ public class Account {
     @JoinColumn(name = "client_id")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private ClientEntity client;
-
+    @Column(name="client_id",insertable = false,updatable = false)
+    private Long clientId;
 ///////////////////////////////////////////////////////////////////////////////////////////////
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "senderAccount")
     private List<Transaction> sentTransactions;

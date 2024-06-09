@@ -16,57 +16,11 @@ import java.io.IOException;
 import java.util.Base64;
 
 @RestController
+@CrossOrigin("*")
+@RequestMapping("/jibi/")
 public class QrController {
 
     private static final String QR_CODE_IMAGE_PATH = "./src/main/ressources/static/QrCodes/QRCode.png";
-
-//    @GetMapping("/qr")
-//    public String getQRCode(Model model){
-//        String rick="https://www.youtube.com/watch?v=dQw4w9WgXcQ";
-//
-//        byte[] image = new byte[0];
-//        try {
-//
-//            // Generate and Return Qr Code in Byte Array
-//            image = QRCodeGenerator.getQRCodeImage(rick,250,250);
-//
-//            // Generate and Save Qr Code Image in static/image folder
-//            QRCodeGenerator.generateQRCodeImage(rick,250,250,QR_CODE_IMAGE_PATH);
-//
-//        } catch (WriterException | IOException e) {
-//            e.printStackTrace();
-//        }
-//        // Convert Byte Array into Base64 Encode String
-//        String qrcode = Base64.getEncoder().encodeToString(image);
-//
-//        model.addAttribute("rick",rick);
-//        model.addAttribute("qrcode",qrcode);
-//
-//        return "qrcode";
-//    }
-
-//    @GetMapping("/generate")
-//    public String generate( @RequestBody QrRequest qrRequest){
-//
-//        String stringToSend = qrRequest.getClient().getClientId().toString()+qrRequest.getAmount().toString();
-//
-//        byte[] image = new byte[0];
-//        try {
-//
-//            // Generate and Return Qr Code in Byte Array
-//            image = QRCodeGenerator.getQRCodeImage(stringToSend,250,250);
-//
-//            // Generate and Save Qr Code Image in static/image folder
-//            //QRCodeGenerator.generateQRCodeImage(stringToSend,250,250,QR_CODE_IMAGE_PATH);
-//
-//        } catch (WriterException | IOException e) {
-//            e.printStackTrace();
-//        }
-//        String qrcode = Base64.getEncoder().encodeToString(image);
-//
-//        return "qrcode";
-//    }
-
 
     @GetMapping("/qr")
     public ResponseEntity<String> generateQRCode(@RequestBody String Rib) {
@@ -95,7 +49,7 @@ public class QrController {
     }
 
 
-    @PostMapping("/qr/img")
+    @PostMapping("qr/img")
     public ResponseEntity<byte[]> generateQRCodeImg(@RequestBody String Rib) {
         String rib= Rib;
         byte[] image;
