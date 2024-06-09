@@ -35,4 +35,13 @@ public class CreanceEntity {
 
 
 
+    public CreanceEntity(Long id, String creance, String ref, CreancierEntity creancier) {
+        this.id = id;
+        this.creance = creance;
+        this.ref = ref;
+        this.creancier = creancier;
+    }
+
+
+
 }
