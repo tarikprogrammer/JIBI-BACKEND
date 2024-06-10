@@ -32,7 +32,7 @@ public class OtpServices {
     @Value("${vonage.api.secret}")
     private String apiSecret;
 
-    public OtpDtoResponse sendSms(OtpDtoRequest otpDtoRequest) throws Exception {
+  /*  public OtpDtoResponse sendSms(OtpDtoRequest otpDtoRequest) throws Exception {
         OtpEntity otpEntity = new OtpEntity();
         StringBuilder sendTo = new StringBuilder("+212");
         for (int i=1;i<otpDtoRequest.getPhone().length();i++){
@@ -72,7 +72,50 @@ public class OtpServices {
             otpDtoResponse.setEnumStatus(EnumStatus.FAILED);
         }
         return otpDtoResponse;
-    }
+    }*/
+  public OtpDtoResponse sendSms(OtpDtoRequest otpDtoRequest) throws Exception {
+      OtpEntity otpEntity = new OtpEntity();
+      StringBuilder sendTo = new StringBuilder("+212");
+      for (int i = 1; i < otpDtoRequest.getPhone().length(); i++) {
+          sendTo.append(otpDtoRequest.getPhone().charAt(i));
+      }
+      String otpGenerator = generateOtp();
+      OtpDtoResponse otpDtoResponse = new OtpDtoResponse();
+      String message = "Votre code de vérification OTP est " + otpGenerator + ". Ne partagez pas ce code avec d'autres personnes.\nApplicatio JIBI\n";
+      VonageClient client = VonageClient.builder()
+              .apiKey(apiKey)
+              .apiSecret(apiSecret)
+              .build();
+      TextMessage textMessage = new TextMessage("JIBI", sendTo.toString(), message);
+      SmsSubmissionResponse response = client.getSmsClient().submitMessage(textMessage);
+
+      if (response.getMessages().get(0).getStatus() == MessageStatus.OK) {
+          otpDtoResponse.setEnumStatus(EnumStatus.DELIVERED);
+          otpDtoResponse.setOtp(otpGenerator);
+          Long findclient = repoClient.findClient(otpDtoRequest.getPhone()).getId();
+
+          if (findclient != null) {
+              ClientEntity clientEntity = repoClient.findById(findclient).orElseThrow(() -> new Exception("Client not found"));
+
+              OtpEntity otpClient = clientEntity.getOtpClient();
+              if (otpClient == null || otpClient.getId() == null) {
+                  BeanUtils.copyProperties(otpDtoResponse, otpEntity);
+                  otpEntity.setClient(clientEntity);
+                  OtpEntity otpSave = repOtp.save(otpEntity);
+              } else {
+                  OtpEntity findOtp = repOtp.findById(otpClient.getId()).orElseThrow(() -> new Exception("Otp not found"));
+                  findOtp.setOtp(otpDtoResponse.getOtp());
+                  OtpEntity otpSave = repOtp.save(findOtp);
+              }
+          } else {
+              throw new Exception("Client ID not found ...");
+          }
+      } else {
+          otpDtoResponse.setEnumStatus(EnumStatus.FAILED);
+      }
+      return otpDtoResponse;
+  }
+
     public  String generateOtp(){
         return new DecimalFormat("000000").format(new Random().nextInt(999999));
     }
