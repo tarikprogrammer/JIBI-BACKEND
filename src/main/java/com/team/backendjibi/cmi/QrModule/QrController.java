@@ -22,30 +22,21 @@ public class QrController {
 
     private static final String QR_CODE_IMAGE_PATH = "./src/main/ressources/static/QrCodes/QRCode.png";
 
-    @GetMapping("/qr")
+    @GetMapping("/qr/base64")
     public ResponseEntity<String> generateQRCode(@RequestBody String Rib) {
         //String rib = request.getClient().getAccount().getRef();
         String rib= Rib;
         byte[] image = new byte[0];
         try {
-            // Generate QR Code image
-            image = QRCodeGenerator.getQRCodeImage(rib, 250, 250);
-        } catch (WriterException | IOException e) {
-            e.printStackTrace();
-            return ResponseEntity.status(500).body("Error generating QR Code");
+            // Generate the QR code image as a Base64 string
+            byte[] qrImage = QRCodeGenerator.getQRCodeImage(rib, 250, 250);
+            String base64QrImage = Base64.getEncoder().encodeToString(qrImage);
+
+            return new ResponseEntity<>(base64QrImage, HttpStatus.OK);
         } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        // Convert Byte Array into Base64 Encode String
-        String qrcode = Base64.getEncoder().encodeToString(image);
-
-        // Create JSON response
-        String jsonResponse = String.format("{\"Rib\":\"%s\", \"qrcode\":\"%s\"}", rib, qrcode);
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-
-        return ResponseEntity.ok().headers(headers).body(jsonResponse);
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
     }
 
 

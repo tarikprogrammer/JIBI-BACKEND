@@ -16,10 +16,11 @@ public class TransactionController {
     private TransactionService transactionService;
 
     @PostMapping("/newTransaction")
-    public ResponseEntity<TransactionDTO> createTransaction(@RequestBody TransactionDTO transactionDTO) {
-        TransactionDTO createdTransaction = transactionService.createTransaction(transactionDTO);
-        return ResponseEntity.ok(createdTransaction);
+    public ResponseEntity<?> createTransaction(@RequestBody TransactionDTO transactionDTO) {
+        return transactionService.createTransaction(transactionDTO);
     }
+
+
 
     @GetMapping("/allTransactions")
     public ResponseEntity<List<TransactionDTO>> getAllTransactions() {
