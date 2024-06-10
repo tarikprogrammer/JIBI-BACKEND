@@ -29,7 +29,7 @@ public class AgentController {
     @Autowired
     private RepoClient repoClient;
 
-    @PostMapping("/backOffice/register")
+    @PostMapping("backOffice/register")
     public RequestAgent createAgent(@RequestBody RequestAgent requestAgent) throws Exception {
         AgentDto agentDto = new AgentDto();
         BeanUtils.copyProperties(requestAgent,agentDto);
@@ -38,7 +38,7 @@ public class AgentController {
         BeanUtils.copyProperties(agentCreated,requestAgent1);
         return requestAgent1;
     }
-    @PostMapping("/backOffice/login")
+    @PostMapping("backOffice/login")
     public AgentDto loginAgent(@RequestBody RequestAgent requestAgent){
         AgentDto agentDto = new AgentDto();
         BeanUtils.copyProperties(requestAgent,agentDto);
@@ -62,20 +62,20 @@ public class AgentController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error uploading image");
         }
     }
-    @PostMapping("/backOffice/client/register")
+    @PostMapping("backOffice/client/register")
     public boolean createClient(@RequestBody RequestClient requestClient){
         ClientDto clientDto = new ClientDto();
         BeanUtils.copyProperties(requestClient,clientDto);
         return serviceClient.create(clientDto);
     }
-    @PutMapping("/backOffice/update")
+    @PutMapping("backOffice/update")
     public boolean updateAgent(@RequestBody RequestAgent requestAgent){
         System.out.println("teststtsttst passs");
         AgentDto agentDto = new AgentDto();
         BeanUtils.copyProperties(requestAgent,agentDto);
         return agentService.updatePassword(agentDto);
     }
-    @GetMapping("/backOffice/clients")
+    @GetMapping("backOffice/clients")
     public List<ClientDto> getAll(){
         System.out.println("for test");
         List<ClientDto>clients=serviceClient.getAllClient();
