@@ -29,7 +29,7 @@ public class Transaction{
     private BigDecimal amount;
 
     @Column(nullable = false)
-    private LocalDateTime date;
+    private String date;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name="sender_id" , nullable = false)

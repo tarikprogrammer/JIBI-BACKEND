@@ -5,4 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface RepoAccount extends JpaRepository<Account,Long> {
     Account findByClientId(Long id);
+    Account findAccountByClientId(Long id);
+    Account findAccountByRef(String Ref);
 }

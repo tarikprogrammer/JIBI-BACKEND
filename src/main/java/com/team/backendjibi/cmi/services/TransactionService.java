@@ -5,6 +5,7 @@ import com.team.backendjibi.cmi.entity.Account;
 import com.team.backendjibi.cmi.entity.Transaction;
 import com.team.backendjibi.cmi.repository.RepoAccount;
 import com.team.backendjibi.cmi.repository.TransactionRepository;
+import com.team.backendjibi.request.TransactionRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,41 +30,61 @@ public class TransactionService {
     private RepoAccount accountRepository;
 
     @Transactional
-    public ResponseEntity<?> createTransaction(TransactionDTO transactionDTO) {
-        Account senderAccount = accountRepository.findById(transactionDTO.getSenderAccountId())
-                .orElse(null);
+    public String createTransaction(TransactionRequest transactionRequest) {
+        Account senderAccount = accountRepository.findAccountByClientId(transactionRequest.getSenderId());
         if (senderAccount == null) {
-            return new ResponseEntity<>("Sender account not found", HttpStatus.NOT_FOUND);
+            //return false;
+            return "no sender";
         }
-        Account receiverAccount = accountRepository.findById(transactionDTO.getReceiverAccountId())
-                .orElse(null);
+            Account receiverAccount = accountRepository.findAccountByRef(transactionRequest.getRib());
         if (receiverAccount == null) {
-            return new ResponseEntity<>("Receiver account not found", HttpStatus.NOT_FOUND);
+            //return false;
+            return "no reciever";
+
         }
         BigDecimal senderBalance = BigDecimal.valueOf(senderAccount.getSolde());
-        if (senderBalance.compareTo(transactionDTO.getAmount()) <0) {
-            return new ResponseEntity<>("Insufficient funds in sender's account", HttpStatus.BAD_REQUEST);
+        if (senderBalance.compareTo(transactionRequest.getAmount()) <0) {
+            //return false;
+            return "not enough money";
+        }
+
+        if (BigDecimal.valueOf(receiverAccount.getPlafond())
+                .compareTo(transactionRequest.getAmount()
+                        .add(BigDecimal.valueOf(receiverAccount.getSolde())) ) <0 && (receiverAccount.getPlafond()!=0)) {
+            //return false;
+            return "this is beyond your plafond";
         }
 
         // Deduct amount from sender's account
-        senderAccount.setSolde(senderAccount.getSolde() - doubleValue(transactionDTO.getAmount()));
+        senderAccount.setSolde(senderAccount.getSolde() - doubleValue(transactionRequest.getAmount()));
         accountRepository.save(senderAccount);
         // Add amount to receiver's account
-        receiverAccount.setSolde(receiverAccount.getSolde() + doubleValue(transactionDTO.getAmount()));
+        receiverAccount.setSolde(receiverAccount.getSolde() + doubleValue(transactionRequest.getAmount()));
         accountRepository.save(receiverAccount);
 
-        // Create and save the transaction
+        //date formatter
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        String formattedDate = now.format(formatter);
+        // Create and save the transaction payement
         Transaction transaction = Transaction.builder()
-                .type(transactionDTO.getType())
-                .amount(transactionDTO.getAmount())
-                .date(transactionDTO.getDate())
+                .type("paiement")
+                .amount(transactionRequest.getAmount())
+                .date(formattedDate)
                 .senderAccount(senderAccount)
                 .receiverAccount(receiverAccount)
                 .build();
-
-        transaction = transactionRepository.save(transaction);
-        transactionDTO.setId(transaction.getId());
-        return new ResponseEntity<>(transactionDTO, HttpStatus.CREATED);
+        transactionRepository.save(transaction);
+        // Create and save the transaction receipt
+         transaction = Transaction.builder()
+                .type("reception")
+                .amount(transactionRequest.getAmount())
+                .date(formattedDate)
+                .senderAccount(receiverAccount)
+                .receiverAccount(senderAccount)
+                .build();
+        transactionRepository.save(transaction);
+        return "transaction done";
     }
 
     public List<TransactionDTO> getAllTransactions() {

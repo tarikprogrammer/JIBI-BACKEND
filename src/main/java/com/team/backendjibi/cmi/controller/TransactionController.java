@@ -2,6 +2,7 @@ package com.team.backendjibi.cmi.controller;
 
 import com.team.backendjibi.cmi.dto.TransactionDTO;
 import com.team.backendjibi.cmi.services.TransactionService;
+import com.team.backendjibi.request.TransactionRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,22 +17,21 @@ public class TransactionController {
     private TransactionService transactionService;
 
     @PostMapping("/newTransaction")
-    public ResponseEntity<?> createTransaction(@RequestBody TransactionDTO transactionDTO) {
-        return transactionService.createTransaction(transactionDTO);
+    public String createTransaction(@RequestBody TransactionRequest transactionRequest) {
+        return transactionService.createTransaction(transactionRequest);
+
     }
 
 
 
     @GetMapping("/allTransactions")
-    public ResponseEntity<List<TransactionDTO>> getAllTransactions() {
-        List<TransactionDTO> transactions = transactionService.getAllTransactions();
-        return ResponseEntity.ok(transactions);
+    public List<TransactionDTO> getAllTransactions() {
+        return transactionService.getAllTransactions();
     }
 
     @GetMapping("/transaction/{id}")
-    public ResponseEntity<TransactionDTO> getTransactionById(@PathVariable Long id) {
-        TransactionDTO transaction = transactionService.getTransactionById(id);
-        return ResponseEntity.ok(transaction);
+    public TransactionDTO getTransactionById(@PathVariable Long id) {
+        return transactionService.getTransactionById(id);
     }
 }
 
