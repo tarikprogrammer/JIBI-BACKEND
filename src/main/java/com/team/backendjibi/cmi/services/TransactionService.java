@@ -30,29 +30,25 @@ public class TransactionService {
     private RepoAccount accountRepository;
 
     @Transactional
-    public String createTransaction(TransactionRequest transactionRequest) {
+    public boolean createTransaction(TransactionRequest transactionRequest) {
         Account senderAccount = accountRepository.findAccountByClientId(transactionRequest.getSenderId());
         if (senderAccount == null) {
-            //return false;
-            return "no sender";
+            return false;
         }
             Account receiverAccount = accountRepository.findAccountByRef(transactionRequest.getRib());
         if (receiverAccount == null) {
-            //return false;
-            return "no reciever";
+            return false;
 
         }
         BigDecimal senderBalance = BigDecimal.valueOf(senderAccount.getSolde());
         if (senderBalance.compareTo(transactionRequest.getAmount()) <0) {
-            //return false;
-            return "not enough money";
+            return false;
         }
 
         if (BigDecimal.valueOf(receiverAccount.getPlafond())
                 .compareTo(transactionRequest.getAmount()
                         .add(BigDecimal.valueOf(receiverAccount.getSolde())) ) <0 && (receiverAccount.getPlafond()!=0)) {
-            //return false;
-            return "this is beyond your plafond";
+            return false;
         }
 
         // Deduct amount from sender's account
@@ -84,7 +80,7 @@ public class TransactionService {
                 .receiverAccount(senderAccount)
                 .build();
         transactionRepository.save(transaction);
-        return "transaction done";
+        return true;
     }
 
     public List<TransactionDTO> getAllTransactions() {

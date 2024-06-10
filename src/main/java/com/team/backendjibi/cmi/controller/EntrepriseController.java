@@ -3,11 +3,9 @@ package com.team.backendjibi.cmi.controller;
 import com.team.backendjibi.cmi.dto.TransactionDTO;
 import com.team.backendjibi.cmi.entity.Entreprise;
 import com.team.backendjibi.cmi.services.EntrepriseService;
+import com.team.backendjibi.request.EntrepriseRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,6 +22,11 @@ public class EntrepriseController {
     @GetMapping("/allEntreprises")
     public List<Entreprise> getAllEntreprises() {
         return entrepriseService.getAllEntreprises();
+    }
+
+    @PostMapping("/newEntreprise")
+    public boolean createEntreprise(EntrepriseRequest entrepriseRequest){
+        return entrepriseService.createEntreprise(entrepriseRequest);
     }
 
 

@@ -15,6 +15,9 @@ public class Entreprise {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String companySize;
+    private String domain;
+
     @Column(nullable = false)
     private Long ClientId;
 
