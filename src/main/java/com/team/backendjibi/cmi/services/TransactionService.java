@@ -6,11 +6,16 @@ import com.team.backendjibi.cmi.entity.Transaction;
 import com.team.backendjibi.cmi.repository.RepoAccount;
 import com.team.backendjibi.cmi.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static org.aspectj.runtime.internal.Conversions.doubleValue;
 
 @Service
 public class TransactionService {
@@ -22,12 +27,30 @@ public class TransactionService {
     private RepoAccount accountRepository;
 
     @Transactional
-    public TransactionDTO createTransaction(TransactionDTO transactionDTO) {
+    public ResponseEntity<?> createTransaction(TransactionDTO transactionDTO) {
         Account senderAccount = accountRepository.findById(transactionDTO.getSenderAccountId())
-                .orElseThrow(() -> new IllegalArgumentException("Sender account not found"));
+                .orElse(null);
+        if (senderAccount == null) {
+            return new ResponseEntity<>("Sender account not found", HttpStatus.NOT_FOUND);
+        }
         Account receiverAccount = accountRepository.findById(transactionDTO.getReceiverAccountId())
-                .orElseThrow(() -> new IllegalArgumentException("Receiver account not found"));
+                .orElse(null);
+        if (receiverAccount == null) {
+            return new ResponseEntity<>("Receiver account not found", HttpStatus.NOT_FOUND);
+        }
+        BigDecimal senderBalance = BigDecimal.valueOf(senderAccount.getSolde());
+        if (senderBalance.compareTo(transactionDTO.getAmount()) <0) {
+            return new ResponseEntity<>("Insufficient funds in sender's account", HttpStatus.BAD_REQUEST);
+        }
 
+        // Deduct amount from sender's account
+        senderAccount.setSolde(senderAccount.getSolde() - doubleValue(transactionDTO.getAmount()));
+        accountRepository.save(senderAccount);
+        // Add amount to receiver's account
+        receiverAccount.setSolde(receiverAccount.getSolde() + doubleValue(transactionDTO.getAmount()));
+        accountRepository.save(receiverAccount);
+
+        // Create and save the transaction
         Transaction transaction = Transaction.builder()
                 .type(transactionDTO.getType())
                 .amount(transactionDTO.getAmount())
@@ -38,7 +61,7 @@ public class TransactionService {
 
         transaction = transactionRepository.save(transaction);
         transactionDTO.setId(transaction.getId());
-        return transactionDTO;
+        return new ResponseEntity<>(transactionDTO, HttpStatus.CREATED);
     }
 
     public List<TransactionDTO> getAllTransactions() {
