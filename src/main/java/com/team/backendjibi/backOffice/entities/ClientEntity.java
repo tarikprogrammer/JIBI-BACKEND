@@ -44,7 +44,9 @@ public class ClientEntity {
     @OneToMany(mappedBy = "client",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private List<HistoriquesEntity> historiques;
 
-
+    @ToString.Exclude
+    @OneToOne(mappedBy = "client",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private ClientPro clientPro;
 
 
 }

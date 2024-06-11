@@ -16,10 +16,10 @@ public class Entreprise {
     private Long id;
 
     private String companySize;
-    private String domain;
+    private String domainCompany;
 
     @Column(nullable = false)
-    private Long ClientId;
+    private Long clientId;
 
 
 

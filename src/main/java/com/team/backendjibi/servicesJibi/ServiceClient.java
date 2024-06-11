@@ -1,6 +1,7 @@
 package com.team.backendjibi.servicesJibi;
 
 import com.team.backendjibi.backOffice.entities.ClientEntity;
+import com.team.backendjibi.backOffice.entities.ClientPro;
 import com.team.backendjibi.backOffice.profiles.AgentProfile;
 import com.team.backendjibi.backOffice.profiles.ClientProfile;
 import com.team.backendjibi.cmi.dto.AccountDto;
@@ -9,6 +10,7 @@ import com.team.backendjibi.cmi.repository.RepoAccount;
 import com.team.backendjibi.cmi.services.ServiceAccount;
 import com.team.backendjibi.dto.AgentDto;
 import com.team.backendjibi.dto.ClientDto;
+import com.team.backendjibi.repositoryJibi.repoEntities.ClientProRepo;
 import com.team.backendjibi.repositoryJibi.repoEntities.RepoClient;
 import com.team.backendjibi.repositoryJibi.repoProfiles.RepoProfileClient;
 import org.springframework.beans.BeanUtils;
@@ -29,7 +31,8 @@ public class ServiceClient {
     private ServiceAccount serviceAccount;
     @Autowired
     private RepoAccount repoAccount;
-
+   @Autowired
+   private ClientProRepo clientProRepo;
 
     public boolean create(ClientDto clientDto){
         boolean status=false;
@@ -44,10 +47,43 @@ public class ServiceClient {
         BeanUtils.copyProperties(accountDto,account);
         account.setClient(clientEntity);
         clientEntity.setAccount(account);
+        ClientPro clientPro =new ClientPro();
+        clientPro.setProClient(false);
+        clientPro.setClient(clientEntity);
+        clientEntity.setClientPro(clientPro);
+        ClientPro created=clientProRepo.save(clientPro);
         ClientEntity newClient = repoClient.save(clientEntity);
         if(newClient!=null)
            status=true;
         return status;
+    }
+
+    public boolean createClientPro(ClientDto clientDto){
+        boolean status=false;
+        Account account= new Account();
+        ClientEntity clientEntity = new ClientEntity();
+        BeanUtils.copyProperties(clientDto,clientEntity);
+        ClientProfile clientProfile = new ClientProfile();
+        BeanUtils.copyProperties(clientDto,clientProfile);
+        clientProfile.setClient(clientEntity);
+        clientEntity.setClientProfile(clientProfile);
+        AccountDto accountDto = new AccountDto();
+        accountDto.setSolde(Double.parseDouble(clientDto.getSolde()));
+        AccountDto createdAccount=serviceAccount.createAccountPro(accountDto);
+        BeanUtils.copyProperties(accountDto,account);
+        account.setClient(clientEntity);
+        clientEntity.setAccount(account);
+        ClientPro clientPro =new ClientPro();
+        clientPro.setProClient(true);
+        clientPro.setClient(clientEntity);
+        clientEntity.setClientPro(clientPro);
+        ClientPro created=clientProRepo.save(clientPro);
+        ClientEntity newClient = repoClient.save(clientEntity);
+        if(newClient!=null)
+            status=true;
+        return status;
+
+
     }
     public List<ClientDto>getAllClient(){
         List<ClientEntity>clients=new ArrayList<>();
@@ -58,6 +94,7 @@ public class ServiceClient {
             ClientDto clientDto = new ClientDto();
             BeanUtils.copyProperties(c,clientDto);
             BeanUtils.copyProperties(c.getClientProfile(),clientDto);
+            BeanUtils.copyProperties(c.getClientPro(),clientDto);
             allclients.add(clientDto);
         }
         return allclients;
@@ -66,12 +103,16 @@ public class ServiceClient {
         ClientEntity getClient = new ClientEntity();
         ClientProfile clientProfile = new ClientProfile();
         BeanUtils.copyProperties(clientDto,clientProfile);
+
         ClientDto clientDto1 = new ClientDto();
         ClientProfile isExist=repoProfileClient.findByPhone(clientProfile.getPhone());
         if(isExist!=null){
+            System.out.println(isExist.getClientId());
            getClient =repoClient.findById(isExist.getClientId()).get();
            BeanUtils.copyProperties(isExist,clientDto1);
            BeanUtils.copyProperties(getClient,clientDto1);
+           BeanUtils.copyProperties(getClient.getClientPro(),clientDto1);
+           clientDto1.setId(isExist.getClientId());
         }
         return clientDto1;
     }

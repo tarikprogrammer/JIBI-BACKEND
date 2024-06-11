@@ -32,22 +32,30 @@ public class TransactionService {
     @Transactional
     public boolean createTransaction(TransactionRequest transactionRequest) {
         Account senderAccount = accountRepository.findAccountByClientId(transactionRequest.getSenderId());
+        System.out.println(transactionRequest.getSenderId());
+        System.out.println(transactionRequest.getRib());
+        System.out.println(transactionRequest.toString());
         if (senderAccount == null) {
+            System.out.println("false in senderw");
             return false;
         }
+        System.out.println("rib"+transactionRequest.getRib());
             Account receiverAccount = accountRepository.findAccountByRef(transactionRequest.getRib());
         if (receiverAccount == null) {
+            System.out.println("false in receiver");
             return false;
 
         }
         BigDecimal senderBalance = BigDecimal.valueOf(senderAccount.getSolde());
         if (senderBalance.compareTo(transactionRequest.getAmount()) <0) {
+            System.out.println("hire 1");
             return false;
         }
 
         if (BigDecimal.valueOf(receiverAccount.getPlafond())
                 .compareTo(transactionRequest.getAmount()
                         .add(BigDecimal.valueOf(receiverAccount.getSolde())) ) <0 && (receiverAccount.getPlafond()!=0)) {
+            System.out.println("hire 2");
             return false;
         }
 

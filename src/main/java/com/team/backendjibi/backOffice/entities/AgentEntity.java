@@ -30,4 +30,5 @@ public class AgentEntity {
     @ToString.Exclude
     @OneToOne(mappedBy = "agent",cascade = CascadeType.ALL,fetch =FetchType.LAZY)
     private AgentProfile agentProfile;
+
 }

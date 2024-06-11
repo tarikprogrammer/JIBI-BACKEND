@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/jibi")
+@CrossOrigin("*")
 public class TransactionController {
 
     @Autowired

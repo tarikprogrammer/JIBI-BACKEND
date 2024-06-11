@@ -14,7 +14,7 @@ import lombok.*;
 public class EntrepriseRequest {
 
     private String companySize;
-    private String domain;
+    private String domainCompany;
 
-    private Long ClientId;
+    private Long clientId;
 }

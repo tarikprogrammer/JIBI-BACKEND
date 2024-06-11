@@ -19,14 +19,13 @@ public class EntrepriseService {
             return false;
         }
         Entreprise entreprise =  Entreprise.builder()
-                .ClientId(entrepriseRequest.getClientId())
+                .clientId(entrepriseRequest.getClientId())
                 .companySize(entrepriseRequest.getCompanySize())
-                .domain(entrepriseRequest.getDomain())
+                .domainCompany(entrepriseRequest.getDomainCompany())
                 .build();
         entrepriseRepository.save(entreprise);
         return true;
     }
-
     public Entreprise getEntrepriseByClientId(Long clientId){
         return entrepriseRepository.findEntrepriseByClientId(clientId);
     }

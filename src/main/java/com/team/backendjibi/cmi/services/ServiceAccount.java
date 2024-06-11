@@ -117,4 +117,14 @@ public class ServiceAccount {
         return response;
     }
 
+    /*------------- account for pro client -------------*/
+    public AccountDto createAccountPro(AccountDto accountDto){
+        Account account = new Account();
+        AccountDto response = new AccountDto();
+        BeanUtils.copyProperties(accountDto,account);
+        Account account1 = repoAccount.save(account);
+        BeanUtils.copyProperties(account1,response);
+        return response;
+    }
+
 }

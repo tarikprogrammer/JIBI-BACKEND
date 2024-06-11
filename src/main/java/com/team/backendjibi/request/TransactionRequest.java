@@ -14,6 +14,7 @@ import java.math.BigDecimal;
 @Transactional
 public class TransactionRequest {
     private Long senderId;
-    private String Rib;
-    private BigDecimal Amount;
+    private String rib;
+    private BigDecimal amount;
+
 }

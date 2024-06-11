@@ -24,4 +24,5 @@ public class ClientDto {
     private String solde;
     private String logoCreancier;
     private String impayes;
+    private boolean proClient;
 }

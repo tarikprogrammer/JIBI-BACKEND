@@ -19,12 +19,12 @@ public class EntrepriseController {
 
 
 
-    @GetMapping("/allEntreprises")
+    @GetMapping("allEntreprises")
     public List<Entreprise> getAllEntreprises() {
         return entrepriseService.getAllEntreprises();
     }
 
-    @PostMapping("/newEntreprise")
+    @PostMapping("newEntreprise")
     public boolean createEntreprise(EntrepriseRequest entrepriseRequest){
         return entrepriseService.createEntreprise(entrepriseRequest);
     }

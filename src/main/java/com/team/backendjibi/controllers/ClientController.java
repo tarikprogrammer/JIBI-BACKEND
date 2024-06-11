@@ -11,16 +11,16 @@ import org.springframework.web.bind.annotation.*;
 public class ClientController {
     @Autowired
     private ServiceClient serviceClient;
-    @PostMapping("/webClient/login")
+    @PostMapping("webClient/login")
     public ClientDto login(@RequestBody ClientDto clientDto){
         System.out.println("test de getClient");
         return serviceClient.getClientDto(clientDto);
     }
-    @PutMapping("/webClient/update")
+    @PutMapping("webClient/update")
     public boolean update(@RequestBody  ClientDto clientDto){
         return serviceClient.updatePassword(clientDto);
     }
-    @PutMapping("/webClient/updateCover")
+    @PutMapping("webClient/updateCover")
     public ClientDto update_cover(@RequestBody ClientDto clientDto){
         return serviceClient.updateCover(clientDto);
     }

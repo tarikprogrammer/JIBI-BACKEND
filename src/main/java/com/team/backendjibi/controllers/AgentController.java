@@ -68,6 +68,10 @@ public class AgentController {
         BeanUtils.copyProperties(requestClient,clientDto);
         return serviceClient.create(clientDto);
     }
+    @PostMapping("backOffice/clientPro/register")
+    public boolean createClientPro(@RequestBody RequestClient requestClient){
+       return serviceClient.createClientPro(requestClient);
+    }
     @PutMapping("backOffice/update")
     public boolean updateAgent(@RequestBody RequestAgent requestAgent){
         System.out.println("teststtsttst passs");
