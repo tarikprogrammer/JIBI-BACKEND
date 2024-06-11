@@ -20,6 +20,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 @Transactional
 @Service
 public class ServiceClient {
@@ -99,7 +101,7 @@ public class ServiceClient {
         }
         return allclients;
     }
-    public ClientDto getClientDto(ClientDto clientDto){
+    /*public ClientDto getClientDto(ClientDto clientDto){
         ClientEntity getClient = new ClientEntity();
         ClientProfile clientProfile = new ClientProfile();
         BeanUtils.copyProperties(clientDto,clientProfile);
@@ -115,7 +117,43 @@ public class ServiceClient {
            clientDto1.setId(isExist.getClientId());
         }
         return clientDto1;
+    }*/
+    public ClientDto getClientDto(ClientDto clientDto) {
+        ClientEntity getClient = new ClientEntity();
+        ClientProfile clientProfile = new ClientProfile();
+        BeanUtils.copyProperties(clientDto, clientProfile);
+
+        ClientDto clientDto1 = new ClientDto();
+        ClientProfile isExist = repoProfileClient.findByPhone(clientProfile.getPhone());
+
+        if (isExist != null) {
+            System.out.println(isExist.getClientId());
+
+            Optional<ClientEntity> optionalClient = repoClient.findById(isExist.getClientId());
+            if (optionalClient.isPresent()) {
+                getClient = optionalClient.get();
+            } else {
+                // Handle case where client is not found
+                // You might want to return an error response or a default ClientDto
+                return clientDto1;
+            }
+
+            // Copy properties only if the source object is not null
+            BeanUtils.copyProperties(isExist, clientDto1);
+
+            if (getClient != null) {
+                BeanUtils.copyProperties(getClient, clientDto1);
+
+                if (getClient.getClientPro() != null) {
+                    BeanUtils.copyProperties(getClient.getClientPro(), clientDto1);
+                }
+            }
+
+            clientDto1.setId(isExist.getClientId());
+        }
+        return clientDto1;
     }
+
 
     public boolean updatePassword(ClientDto clientDto){
         ClientProfile client = new ClientProfile();
